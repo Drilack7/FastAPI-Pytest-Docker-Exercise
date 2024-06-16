@@ -5,7 +5,7 @@ import logging
 
 client = TestClient(app)
 
-ORDERS = [
+ORDERS_SAMPLE = [
     {
         "id": 528,
         "seller": "john",
@@ -26,7 +26,7 @@ ORDERS = [
 
 
 def test_post_orders():
-    for order in ORDERS:
+    for order in ORDERS_SAMPLE:
         order_in_json = json.dumps(order)  # converts from Python dict to JSON format
         logging.debug(f"Order in json format: {order_in_json}")
         response = client.post(url="/orders/", content=order_in_json)
@@ -40,11 +40,11 @@ def test_get_orders():
     response = client.get("/orders/")
     assert response.status_code == 200
     logging.debug(f"Asserting response msg for get orders")
-    for i in range(0, len(ORDERS)):
-        assert str(response.json()[i]) == str(ORDERS[i])  # convert to strings because as JSON object it was failing
+    for i in range(0, len(ORDERS_SAMPLE)):
+        assert str(response.json()[i]) == str(ORDERS_SAMPLE[i])  # convert to strings because as JSON object it was failing
 
 def test_get_order():
-    for order in ORDERS:
+    for order in ORDERS_SAMPLE:
         order_id = order["id"]
         response = client.get(f"/orders/{order_id}")
         assert response.status_code == 200
@@ -52,10 +52,16 @@ def test_get_order():
         assert str(response.json()[0]) == str(order)
 
 def test_delete_order():
-    order_id = ORDERS[0]["id"]
+    order_id = ORDERS_SAMPLE[0]["id"]
     response = client.delete(f"/orders/{order_id}")
     assert response.status_code == 204
     logging.debug(f"Asserting response msg for delete order id={order_id}")
     assert response.content == b''
 
-# pytest -v --html=report.html
+def test_get_orders_after_delete():
+    response = client.get("/orders/")
+    assert response.status_code == 200
+    logging.debug(f"Asserting response msg for get orders after delete")
+    assert str(response.json()[0]) == str(ORDERS_SAMPLE[1])  # asserting that only the second order remained in database
+
+#pytest tests/test_positive.py -v --html=report.html --self-contained-html
