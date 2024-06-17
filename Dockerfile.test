@@ -12,5 +12,11 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # copy API files
 COPY ./app /code/app
 
+# copy Test files
+COPY ./tests /code/tests
+
+# define the port number the container should expose
+EXPOSE 5000
+
 # run the command
-CMD ["fastapi", "run", "app/main.py", "--port", "80"]
+CMD ["pytest", "./tests/test_positive.py"]

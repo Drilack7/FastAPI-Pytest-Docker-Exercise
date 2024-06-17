@@ -19,7 +19,7 @@ app = FastAPI(
     title="Forex Trading Platform API",
     description="A RESTful API to simulate a Forex trading platform with WebSocket support for real-time order updates.",
     version="1.0.0",
-    servers=[{'url': 'http://127.0.0.1:8000'}]
+    servers=[{'url': 'http://localhost:8000'}]
 )
 
 @app.get("/orders/", response_description="A list of orders")
