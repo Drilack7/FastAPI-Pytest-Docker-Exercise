@@ -1,16 +1,16 @@
 FROM python:3.8
 
 # set a directory for the app
-WORKDIR /usr/src/app
+WORKDIR /code
 
-# copy all the files to the container
-COPY . .
+# copy requirements file
+COPY ./requirements.txt /code/requirements.txt
 
 # install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-# define the port number the container should expose
-EXPOSE 5000
+# copy API files
+COPY ./app /code/app
 
 # run the command
-CMD ["pytest", "./tests/test_positive.py"]
+CMD ["fastapi", "run", "app/main.py", "--port", "80"]
