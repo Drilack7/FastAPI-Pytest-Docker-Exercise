@@ -1,8 +1,8 @@
-# Test Task QA / SDET TRADING
+# FastAPI and Pytest in Docker
 
 This repository builds an automated test suite for a `RESTful API` that simulates a trading platform with WebSocket support in `Docker containers`.
 
-The API and the Testsuite are developed in `Python` and `Pytest`
+The API and the Testsuite are developed in `Python` with `FastAPI` and `Pytest`
 
 ## Steps to run the tests in Docker
 
