@@ -4,7 +4,7 @@ This repository builds an automated test suite for a `RESTful API` that simulate
 
 The API and the Testsuite are developed in `Python` with `FastAPI` and `Pytest`
 
-## Steps to run the tests in Docker
+## How to run in Docker
 
 **Prerequisites**:
 
