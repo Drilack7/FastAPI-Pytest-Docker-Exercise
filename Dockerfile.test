@@ -15,8 +15,5 @@ COPY ./app /code/app
 # copy Test files
 COPY ./tests /code/tests
 
-# define the port number the container should expose
-EXPOSE 5000
-
 # run the command
-CMD ["pytest", "./tests/test_positive.py"]
+CMD ["pytest", "-v", "--html=report.html", "--self-contained-html"]
